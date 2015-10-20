@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+<body>
+<canvas id="demo"></canvas>
+
+<script src="../../pkgs/jquery/jquery.js"></script>
+<script src="../../pkgs/qircanvas/qircanvas.js"></script>
+<script>
+	var context = document.getElementById('demo'),
+			ctx = context.getContext('2d'),
+			w = $(window).width(),
+			h = $(window).height(),
+			size = 3,
+			r = 0;   
+	
+	context.width = w;
+	context.height = h;
+
+	// 随机颜色
+	var getRandomColor = function(){
+	  return '#'+(Math.random()*0xffffff<<0).toString(16);
+	}
+
+	var drawCanvas = function(r, num){
+		var rad = 2*Math.PI/num;
+		var x,y;
+
+		for (var i = num - 1; i >= 0; i--) {
+			x = w/2 + r*Math.sin(rad*i);
+			y = h/2 + r*Math.cos(rad*i);
+			ctx.fillStyle = getRandomColor();
+			ctx.fillRect(x, y, size, size);
+		}	
+	}
+
+	var animate = function(){
+		requestAnimationFrame( animate );
+		ctx.fillStyle = "#000";
+  	ctx.fillRect(0,0,context.width,context.height);
+		if(r == 50) {
+			r = 1;
+		} else {
+			r++;
+		}
+		console.log(r);
+		drawCanvas(r, 30);
+	}
+	
+	animate();
+</script>
+</body>
+</html>

@@ -1,8 +1,10 @@
 ul {
-	width: 100%;
+	width: 48%;
+	min-width: 550px;
 	padding: 20px;
 	line-height: 1.75;
 	box-sizing: border-box;
+	display: inline-block;
 }
 
 p {

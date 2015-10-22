@@ -17,9 +17,7 @@
 			w = $(window).width(),
 			h = $(window).height(),
 			size = 3,
-			r = 0,
-			str = [],
-			ss = -1;   
+			r = 0;   
 	
 	context.width = w;
 	context.height = h;
@@ -28,42 +26,30 @@
 	var getRandomColor = function(){
 	  return '#'+(Math.random()*0xffffff<<0).toString(16);
 	}
-	
-	var drawCanvas = function(r,part1,str1){
-		// var rad = 2*Math.PI/num;
-		var jd = Math.PI/180;
-		if (r < str1.length + 1) {
-		console.log(r, str1.length);
 
-			for (var i = str1.length - 1; i >= 0; i--) {
-				x = str1[i].x+100*Math.sin(jd*i);
-				y = str1[i].y+100*Math.cos(jd*i);
-				ctx.fillStyle = str1[i].color;
-				ctx.fillRect(x, y, size, size);
-			}
-		} else {
-			var rad = (str1.length*Math.random()).toFixed(0);
-			var s = rad%str1.length;
+	var drawCanvas = function(r, num){
+		var rad = 2*Math.PI/num;
+		var x,y;
 
-			x = str1[s].x+100*Math.sin(jd*s);
-			y = str1[s].y+100*Math.cos(jd*s);
-			console.log(s,x,y);
-			ctx.fillStyle = 'red';
+		for (var i = num - 1; i >= 0; i--) {
+			x = w/2 + r*Math.sin(rad*i);
+			y = h/2 + r*Math.cos(rad*i);
+			ctx.fillStyle = getRandomColor();
 			ctx.fillRect(x, y, size, size);
-		}
+		}	
 	}
 
 	var animate = function(){
 		requestAnimationFrame( animate );
-		var part = [];
-		if(r < 10) {
-			part.x = w*Math.random();
-			part.y = h*Math.random();
-			part.color = getRandomColor();
-			str[r] = part;
+		ctx.fillStyle = "#000";
+  	ctx.fillRect(0,0,context.width,context.height);
+		if(r == 50) {
+			r = 1;
+		} else {
+			r++;
 		}
-		r++;
-		drawCanvas(r,part,str);
+		console.log(r);
+		drawCanvas(r, 30);
 	}
 	
 	animate();

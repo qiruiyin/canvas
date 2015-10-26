@@ -2877,7 +2877,7 @@ var rootjQuery,
 
 		return jQuery.makeArray( selector, this );
 	};
-
+ 
 // Give the init function the jQuery prototype for later instantiation
 init.prototype = jQuery.fn;
 

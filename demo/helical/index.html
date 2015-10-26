@@ -57,6 +57,11 @@
 	}
 	
 	animate();
+
+	window.addEventListener('resize', function() {
+	  ctx.width = w = $(window).width();
+	  ctx.height = h = $(window).height();
+	}, false);
 </script>
 </body>
 </html>

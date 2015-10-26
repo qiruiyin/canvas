@@ -17,7 +17,11 @@
 			w = $(window).width(),
 			h = $(window).height(),
 			size = 3,
-			r = 0;   
+			r = 50,
+			num = 30,
+			j = 0,
+			x, y, _x, _y,
+			string = [];   
 	
 	context.width = w;
 	context.height = h;
@@ -26,37 +30,37 @@
 	var getRandomColor = function(){
 	  return '#'+(Math.random()*0xffffff<<0).toString(16);
 	}
-
-	var drawCanvas = function(r, num){
-		var rad = 2*Math.PI/num;
-		var x,y;
+	
+	var drawCanvas = function(r, str){
+		var rad = Math.PI/num;
 
 		for (var i = num - 1; i >= 0; i--) {
-			x = w/2 + r*Math.sin(rad*i);
-			y = h/2 + r*Math.cos(rad*i);
+			x = w/2 + r*Math.cos((i+j)*rad);
+			y = h/2 + r*Math.sin((i+j)*rad);
 			ctx.fillStyle = getRandomColor();
 			ctx.fillRect(x, y, size, size);
-		}	
+		}
+		for (var i = num - 1; i >= 0; i--) {
+			x = w/2 + 2*r*Math.sin((i+j)*rad);
+			y = h/2 + 2*r*Math.cos((i+j)*rad);
+			ctx.fillStyle = getRandomColor();
+			ctx.fillRect(x, y, size, size);
+		}
+		j++;
 	}
 
 	var animate = function(){
 		requestAnimationFrame( animate );
-		ctx.fillStyle = "#000";
-  	ctx.fillRect(0,0,context.width,context.height);
-		if(r == 50) {
-			r = 1;
-		} else {
-			r++;
-		}
-		console.log(r);
-		drawCanvas(r, 30);
+		// r++;
+		ctx.clearRect(0, 0, w, h);
+		drawCanvas(r, string);
 	}
 	
 	animate();
 
 	window.addEventListener('resize', function() {
-	  ctx.width = w = $(window).width();
-	  ctx.height = h = $(window).height();
+	  context.width = ctx.width = w = $(window).width();
+	  context.height = ctx.height = h = $(window).height();
 	}, false);
 </script>
 </body>
